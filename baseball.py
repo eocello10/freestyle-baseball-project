@@ -19,7 +19,7 @@ headers = df.iloc[1]
 df = pd.DataFrame(df.values[2:], columns = headers)
 #df = df[df.PLAYER != 'PLAYER']
 df = df[df.RK != 'RK']
-#import requests
+#dr.drop(['1'], axis=1) - Trying to drop column to left of rank. Does not work
 
 # print(len(df.index)) - illustrates I removed the "headers" for everything underneath first row
 # all columns are objects which are strings
@@ -33,9 +33,13 @@ df = df[df.RK != 'RK']
 
 while True:
    rank = input("Please enter a player: ")
-   Stats = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
-   print(Stats)
-   #if (<some condition met>):
+   NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
+   STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
+   MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
+   print(NAME_TEAM)
+   print (STATS)
+   print(MORE_STATS)
+   #if df[df['RK']==rank]['RK']:
    #    exit
 
 #while True:
