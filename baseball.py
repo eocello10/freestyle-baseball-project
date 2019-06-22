@@ -4,23 +4,23 @@
 
 ### Code to figure out data frame - don't change line 6-11
 import pandas as pd
-#Imports for Twilio - have to also install pip-requirements and create a conda envrionment
-#import os
-#import pprint
+#Import for Twilios #have to also install pip-requirements and create a conda envrionment
+import os
+import pprint
 #
-#from dotenv import load_dotenv
-#from twilio.rest import Client
+from dotenv import load_dotenv
+from twilio.rest import Client
 
-#load_dotenv()
+load_dotenv()
 #import requests
 df = pd.read_html('http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2')
 df = pd.DataFrame(df[0])
 headers = df.iloc[1]
 df = pd.DataFrame(df.values[2:], columns = headers)
 #df = df[df.PLAYER != 'PLAYER']
-df = df[df.RK != 'RK']
+#df = df[df.RK != 'RK']
 #dr.drop(['1'], axis=1) - Trying to drop column to left of rank. Does not work
-
+df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
 # print(len(df.index)) - illustrates I removed the "headers" for everything underneath first row
 # all columns are objects which are strings
 #df3.OBP = pd.to_numeric(df3.OBP) - need to try and convert this to a float instead of oobject??? OR DO i NEED TO
@@ -32,25 +32,30 @@ df = df[df.RK != 'RK']
 # Might need to conda create and conda activate than install requirements - refer to twilio exercise
 
 while True:
-   rank = input("Please enter a player: ")
+   rank = input("Please enter a player's rank between 1-40 (NAN included for players tied in rank): ")
    NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
    STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
    MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
    print(NAME_TEAM)
    print (STATS)
    print(MORE_STATS)
-   #if df[df['RK']==rank]['RK']:
+   exit()
+   if rank not in df:
+       print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
+       exit() 
+   #xrange = str(1-41)
+   #if rank not in xrange(1, 41):
+   #     print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
+   #     break    
+   #if rank in xrange(1, 41):
+   #     print(NAME_TEAM)
+   #     print (STATS)
+   #     print(MORE_STATS)
+   #     exit()
+      
+   #df[df['RK']==rank]['RK']:
    #    exit
 
-#while True:
-#   rank = input("Please enter a player: ")
-   
-#   if rank == df['RK']:# a value in the df list 
-#        print(Stats)
-#   #else:
-   #     request_url = f"http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2"
-   #     response = requests.get(request_url)
-   #     break
         
 #print(df[df.PLAYER == 'Cody Bellinger']) 
 #print(df[df.RK == '{}.format(rank)']) #Simpler Approach
@@ -74,36 +79,36 @@ while True:
 
 
 #
-#TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
-#TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
-#SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
-#RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
+TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
+TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
+SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
+RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
 #
 ## AUTHENTICATE
 #
-#client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 #
 ## COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
 #
-#content = "Hello, this is a message from your personal notification service. TODO: customize me!"
+content = "Your daily STATS CHECK notification based on your input. See the player you chose: " 
 #
 ## ISSUE REQUEST (SEND SMS)
 #
-#message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
+message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
 #
 ## PARSE RESPONSE
 #
-#pp = pprint.PrettyPrinter(indent=4)
+pp = pprint.PrettyPrinter(indent=4)
 #
-#print("----------------------")
-#print("SMS")
-#print("----------------------")
-#print("RESPONSE: ", type(message))
-#print("FROM:", message.from_)
-#print("TO:", message.to)
-#print("BODY:", message.body)
-#print("PROPERTIES:")
-#pp.pprint(dict(message._properties))
+print("----------------------")
+print("SMS")
+print("----------------------")
+print("RESPONSE: ", type(message))
+print("FROM:", message.from_)
+print("TO:", message.to)
+print("BODY:", message.body)
+print("PROPERTIES:")
+pp.pprint(dict(message._properties))
 
 
 #PLAYER = [
