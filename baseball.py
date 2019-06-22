@@ -1,6 +1,8 @@
 
 # df.reindex(df.index.drop(1))
 
+#conda create notifcation-env python-3.7 environment
+#conda activate notification-env for twilio
 
 ### Code to figure out data frame - don't change line 6-11
 import pandas as pd
@@ -32,17 +34,27 @@ df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
 # Might need to conda create and conda activate than install requirements - refer to twilio exercise
 
 while True:
-   rank = input("Please enter a player's rank between 1-40 (NAN included for players tied in rank): ")
-   NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
-   STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
-   MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
-   print(NAME_TEAM)
-   print (STATS)
-   print(MORE_STATS)
-   exit()
-   if rank not in df:
-       print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
-       exit() 
+    rank = input("Please enter a player's rank between 1-40 (NAN included for players tied in rank): ")
+    if int(rank) <40:
+        NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
+        STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
+        MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
+        print(NAME_TEAM)
+        print(STATS)
+        print(MORE_STATS)
+    else:
+        print("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
+        break
+   #df[df['RK']==rank]['RK']
+   #if df[df['RK']==rank]['RK'] not in df:
+   #    print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
+   #    break
+   #else:
+   #    print(NAME_TEAM)
+   #    print(STATS)
+   #    print(MORE_STATS)
+   #    exit()
+       
    #xrange = str(1-41)
    #if rank not in xrange(1, 41):
    #     print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
@@ -79,36 +91,36 @@ while True:
 
 
 #
-TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
-TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
-SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
-RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
-#
-## AUTHENTICATE
-#
-client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-#
-## COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
-#
-content = "Your daily STATS CHECK notification based on your input. See the player you chose: " 
-#
-## ISSUE REQUEST (SEND SMS)
-#
-message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
-#
-## PARSE RESPONSE
-#
-pp = pprint.PrettyPrinter(indent=4)
-#
-print("----------------------")
-print("SMS")
-print("----------------------")
-print("RESPONSE: ", type(message))
-print("FROM:", message.from_)
-print("TO:", message.to)
-print("BODY:", message.body)
-print("PROPERTIES:")
-pp.pprint(dict(message._properties))
+#TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
+#TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
+#SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
+#RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
+##
+### AUTHENTICATE
+##
+#client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+##
+### COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
+##
+#content = "Your daily STATS CHECK notification based on your input. See the player you chose: " 
+##
+### ISSUE REQUEST (SEND SMS)
+##
+#message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
+##
+### PARSE RESPONSE
+##
+#pp = pprint.PrettyPrinter(indent=4)
+##
+#print("----------------------")
+#print("SMS")
+#print("----------------------")
+#print("RESPONSE: ", type(message))
+#print("FROM:", message.from_)
+#print("TO:", message.to)
+#print("BODY:", message.body)
+#print("PROPERTIES:")
+#pp.pprint(dict(message._properties))
 
 
 #PLAYER = [
@@ -124,23 +136,3 @@ pp.pprint(dict(message._properties))
 #
 ##print(PLAYER)
 #
-#selected_players = []
-#Valid_players = []
-#for i in PLAYER:
-#    Valid_players.append(i["Name"])
-#
-#while True:
-#    Player_name = input("Please enter a player's name:")
-#    if Player_name.lower() == "done": #Think I have to use elif
-#        break
-#    while Player_name not in str(Valid_players): # either make an elif or add another break
-#        print ("Invalid player name. Choose again")
-#        break
-#    else:
-#        selected_players.append(Player_name)
-#
-#
-#for Player_name in selected_players:
-#    Stats  = [p for p in PLAYER if str(p["Name"]) == str(Player_name)] 
-#    Stats = Stats[0]
-#    print("Team: " + Stats["Team"] + "Runs: " + Stats["Runs"] + "Hits: " + Stats["Hits"] + "Stats: " + Stats["HR"] + "RBI: " + Stats["RBI"] + "AVG: " + Stats["AVG"]) 
