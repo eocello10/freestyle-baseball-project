@@ -35,13 +35,24 @@ df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
 
 while True:
     rank = input("Please enter a player's rank between 1-40 (NAN included for players tied in rank): ")
-    if int(rank) <40:
-        NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
-        STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
-        MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
-        print(NAME_TEAM)
-        print(STATS)
-        print(MORE_STATS)
+    if int(rank) <41:#find rank that is less than 41. need 1-40
+        ROW = df[df['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
+        #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
+        #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
+        #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
+        print("PLAYER: " + str(ROW['PLAYER'].values[0]))
+        print("TEAM: " + str(ROW['TEAM'].values[0]))
+        print("HITS: " + str(ROW['H'].values[0]))
+        print("HOME RUNS: " + str(ROW['HR'].values[0]))
+        print("AVG: " + str(ROW['AVG'].values[0]))
+        print("OPS: " + str(ROW['OPS'].values[0]))
+        print("------------------------------")
+        break
+    #How dataframes work - When you pull a dtaaframe you get the index, value, column name, and data type
+    # #In order to only get the value out of a DF you have to use the values construct. by not using that previosuly I was getting all information (i.e. data type, index, etc.)    
+        #print(NAME_TEAM)
+        #print(STATS)
+        #print(MORE_STATS)
     else:
         print("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
         break
@@ -65,7 +76,7 @@ while True:
    #     print(MORE_STATS)
    #     exit()
       
-   #df[df['RK']==rank]['RK']:
+   #df[df['RK']==rank]['RK'] - this gave me all the information from the dataframe to make it cleanr see above description of values
    #    exit
 
         
@@ -89,38 +100,38 @@ while True:
 # ... https://github.com/s2t2/birthday-wishes-py/commit/007c23f89dba5a8a87d85c6cf843c83514fc4736
 # ... https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/twilio.md
 
-
+#possibly might need to add a check here to make sure if greater than 40 error isn't an issue 
 #
-#TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
-#TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
-#SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
-#RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
+TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
+TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
+SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
+RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
 ##
 ### AUTHENTICATE
 ##
-#client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 ##
 ### COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
 ##
-#content = "Your daily STATS CHECK notification based on your input. See the player you chose: " 
+content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
 ##
 ### ISSUE REQUEST (SEND SMS)
 ##
-#message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
+message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
 ##
 ### PARSE RESPONSE
 ##
-#pp = pprint.PrettyPrinter(indent=4)
+pp = pprint.PrettyPrinter(indent=4)
 ##
-#print("----------------------")
-#print("SMS")
-#print("----------------------")
-#print("RESPONSE: ", type(message))
-#print("FROM:", message.from_)
-#print("TO:", message.to)
-#print("BODY:", message.body)
-#print("PROPERTIES:")
-#pp.pprint(dict(message._properties))
+print("----------------------")
+print("SMS")
+print("----------------------")
+print("RESPONSE: ", type(message))
+print("FROM:", message.from_)
+print("TO:", message.to)
+print("BODY:", message.body)
+print("PROPERTIES:")
+pp.pprint(dict(message._properties))
 
 
 #PLAYER = [
