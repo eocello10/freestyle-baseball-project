@@ -6,11 +6,12 @@
 #pip install pytest - allows for automated tests - have to input pytest into command line. Determines whether or not logic is behaving as desired
 #Import for Twilios #have to also install pip-requirements and create a conda envrionment
 ### Code to figure out data frame - don't change line 6-11
+#pip install -r requirements.txt, pip install lxml
+
 import pandas as pd
 
 import os
 import pprint
-#
 from dotenv import load_dotenv
 from twilio.rest import Client
 
@@ -102,7 +103,7 @@ while True:
 # ... https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/twilio.md
 
 #possibly might need to add a check here to make sure if greater than 40 error isn't an issue 
-#
+#Ask how i can get the message sent to someone else's phone
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
 TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
 SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
