@@ -3,10 +3,11 @@
 
 #conda create notifcation-env python-3.7 environment
 #conda activate notification-env for twilio
-
+#pip install pytest - allows for automated tests - have to input pytest into command line. Determines whether or not logic is behaving as desired
+#Import for Twilios #have to also install pip-requirements and create a conda envrionment
 ### Code to figure out data frame - don't change line 6-11
 import pandas as pd
-#Import for Twilios #have to also install pip-requirements and create a conda envrionment
+
 import os
 import pprint
 #
