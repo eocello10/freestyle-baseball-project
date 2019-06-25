@@ -18,13 +18,69 @@ from twilio.rest import Client
 load_dotenv()
 #import requests
 df = pd.read_html('http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2')
+
 df = pd.DataFrame(df[0])
+
 headers = df.iloc[1]
 df = pd.DataFrame(df.values[2:], columns = headers)
-#df = df[df.PLAYER != 'PLAYER']
+df = df[df.RK != 'RK']
+df = df.reset_index()
+df = df.drop(columns = ['index'])
+df = df.fillna(method = 'ffill')
+
+#deleted my index
 #df = df[df.RK != 'RK']
-#dr.drop(['1'], axis=1) - Trying to drop column to left of rank. Does not work
-df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
+#this deletes my index
+df2 = pd.read_html('http://www.espn.com/mlb/stats/batting/_/count/41/qualified/true')
+
+df2 = pd.DataFrame(df2[0])
+
+headers = df2.iloc[1]
+df2 = pd.DataFrame(df2.values[2:], columns = headers)
+
+df2 = df2[df2.RK != 'RK']
+
+df2 = df2.reset_index()
+df2 = df2.drop(columns = ['index'])
+df2 = df2.fillna(method = 'ffill')
+
+df3 = pd.read_html('http://www.espn.com/mlb/stats/batting/_/count/81/qualified/true')
+
+df3 = pd.DataFrame(df3[0])
+
+headers = df3.iloc[1]
+df3 = pd.DataFrame(df3.values[2:], columns = headers)
+
+df3 = df3[df3.RK != 'RK']
+
+df3 = df3.reset_index()
+df3 = df3.drop(columns = ['index'])
+df3 = df3.fillna(method = 'ffill')
+
+df4 = pd.read_html('http://www.espn.com/mlb/stats/batting/_/count/121/qualified/true')
+
+df4 = pd.DataFrame(df4[0])
+
+headers = df4.iloc[1]
+df4 = pd.DataFrame(df4.values[2:], columns = headers)
+
+df4 = df4[df4.RK != 'RK']
+
+df4 = df4.reset_index()
+df4 = df4.drop(columns = ['index'])
+df4 = df4.fillna(method = 'ffill')
+
+df5 = pd.concat([df, df2, df3, df4])
+
+#print(df3)
+#http://www.espn.com/mlb/stats/batting/_/count/81/qualified/true
+#http://www.espn.com/mlb/stats/batting/_/count/121/qualified/true
+#
+
+#print(df3)
+##dr.drop(['1'], axis=1) - Trying to drop column to left of rank. Does not work
+#df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
+#print(df)
 # print(len(df.index)) - illustrates I removed the "headers" for everything underneath first row
 # all columns are objects which are strings
 #df3.OBP = pd.to_numeric(df3.OBP) - need to try and convert this to a float instead of oobject??? OR DO i NEED TO
@@ -35,10 +91,17 @@ df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
 ###Setup
 # Might need to conda create and conda activate than install requirements - refer to twilio exercise
 
+print("You must enter a rank between 1-160 as these are the numbers of batters that currently qualify for at bats.")
+
+print("If a player is tied in rank you will see multiple players based on your input.")
 while True:
-    rank = input("Please enter a player's rank between 1-40 (NAN included for players tied in rank): ")
-    if int(rank) <41:#find rank that is less than 41. need 1-40
-        ROW = df[df['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
+    rank = input("Please enter a player's rank between 1-160 (NAN included for players tied in rank): ")
+   #if rank.lower() == "done": #Think I have to use elif
+   #    break
+   #if df2.lower() == "done": #Think I have to use elif
+   #    break
+    if int(rank) <161:#find rank that is less than 41. need 1-40
+        ROW = df5[df5['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
         #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
         #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
         #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
@@ -50,14 +113,39 @@ while True:
         print("OPS: " + str(ROW['OPS'].values[0]))
         print("------------------------------")
         break
-    #How dataframes work - When you pull a dtaaframe you get the index, value, column name, and data type
-    # #In order to only get the value out of a DF you have to use the values construct. by not using that previosuly I was getting all information (i.e. data type, index, etc.)    
-        #print(NAME_TEAM)
-        #print(STATS)
-        #print(MORE_STATS)
+   
+#    #How dataframes work - When you pull a dtaaframe you get the index, value, column name, and data type
+#    # #In order to only get the value out of a DF you have to use the values construct. by not using that previosuly I was getting all information (i.e. data type, index, etc.)    
+#        #print(NAME_TEAM)
+#        #print(STATS)
+#        #print(MORE_STATS)
     else:
-        print("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
-        break
+        print("Invalid Rank. Ranks for this input has to be between 1-160. The system will reboot! Please enter a valid rank.")
+        exit()
+
+
+#   rank = input("Please enter a player's rank between 41-80 (NAN included for players tied in rank): ")
+#   if int(rank) <81:#find rank that is less than 41. need 1-40
+#       ROW = df2[df2['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
+#       #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
+#       #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
+#       #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
+#       print("PLAYER: " + str(ROW['PLAYER'].values[0]))
+#       print("TEAM: " + str(ROW['TEAM'].values[0]))
+#       print("HITS: " + str(ROW['H'].values[0]))
+#       print("HOME RUNS: " + str(ROW['HR'].values[0]))
+#       print("AVG: " + str(ROW['AVG'].values[0]))
+#       print("OPS: " + str(ROW['OPS'].values[0]))
+#       print("------------------------------")
+#       break
+#    #How dataframes work - When you pull a dtaaframe you get the index, value, column name, and data type
+#    # #In order to only get the value out of a DF you have to use the values construct. by not using that previosuly I was getting all information (i.e. data type, index, etc.)    
+#        #print(NAME_TEAM)
+#        #print(STATS)
+#        #print(MORE_STATS)
+#    else:
+#        print("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
+#        break
    #df[df['RK']==rank]['RK']
    #if df[df['RK']==rank]['RK'] not in df:
    #    print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
@@ -84,10 +172,6 @@ while True:
         
 #print(df[df.PLAYER == 'Cody Bellinger']) 
 #print(df[df.RK == '{}.format(rank)']) #Simpler Approach
-#IF THEY GIVE SOMETHING ABOVE FORTY IT IS INVALID
-#1. get user input
-#2. put braces {}
-#3. replace braces with user input
 ##try to figure out how to show the players they can choose from - make menu with a number
 
 
@@ -108,23 +192,23 @@ TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify 
 TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
 SENDER_SMS  = os.environ.get("SENDER_SMS", "OOPS, please specify env var called 'SENDER_SMS'")
 RECIPIENT_SMS  = os.environ.get("RECIPIENT_SMS", "OOPS, please specify env var called 'RECIPIENT_SMS'")
-##
+
 ### AUTHENTICATE
-##
+
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-##
+
 ### COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
-##
+
 content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
-##
+
 ### ISSUE REQUEST (SEND SMS)
-##
+
 message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
-##
+
 ### PARSE RESPONSE
-##
+
 pp = pprint.PrettyPrinter(indent=4)
-##
+
 print("----------------------")
 print("SMS")
 print("----------------------")
@@ -134,8 +218,7 @@ print("TO:", message.to)
 print("BODY:", message.body)
 print("PROPERTIES:")
 pp.pprint(dict(message._properties))
-
-
+# Initial test with list to ensure I can test the simplified version of the code above 
 #PLAYER = [
 #{"Name": "Cody Bellinger", "Team": "LAD", "Runs":"54", "Hits":"88", "HR":"23", "RBI": "58", "AVG": ".355"},
 #{"Name": "Christian Yelich", "Team":"MIL", "Runs": "56","Hits":"81", "HR":"26", "RBI": "57", "AVG": ".343",},	
