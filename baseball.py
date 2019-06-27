@@ -71,7 +71,7 @@ df4 = df4.drop(columns = ['index'])
 df4 = df4.fillna(method = 'ffill')
 
 df5 = pd.concat([df, df2, df3, df4])
-
+###Consider updating from rank to player. If do this add list of players in README
 #print(df3)
 #http://www.espn.com/mlb/stats/batting/_/count/81/qualified/true
 #http://www.espn.com/mlb/stats/batting/_/count/121/qualified/true
@@ -82,11 +82,7 @@ df5 = pd.concat([df, df2, df3, df4])
 #df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
 #print(df)
 # print(len(df.index)) - illustrates I removed the "headers" for everything underneath first row
-# all columns are objects which are strings
-#df3.OBP = pd.to_numeric(df3.OBP) - need to try and convert this to a float instead of oobject??? OR DO i NEED TO
-#df3.OBP.mean() - find the mean of the 40 players on there
-#df3.to_csv('Baseballstats.csv', index = False) - saved info to a file - index = False removes row numbers
-###This line is not needed. Just for me to see what happened #df.head() - produces data in a readable format for me
+
 
 ###Setup
 # Might need to conda create and conda activate than install requirements - refer to twilio exercise
@@ -100,6 +96,13 @@ while True:
    #    break
    #if df2.lower() == "done": #Think I have to use elif
    #    break
+   #player = input("Please enter a player that is qualified based on ESPN's list(view README): ")
+   ##if rank.lower() == "done": #Think I have to use elif
+   ##    break
+   ##if df2.lower() == "done": #Think I have to use elif
+   ##    break
+   # ROW = df5[df5['PLAYER']==player][['RK', 'PLAYER','TEAM','H','HR','AVG','OPS']]
+  # if player in df5[df5['PLAYER']:
     if int(rank) <161:#find rank that is less than 41. need 1-40
         ROW = df5[df5['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
         #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
