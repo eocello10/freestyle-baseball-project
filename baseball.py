@@ -1,14 +1,14 @@
 
 # df.reindex(df.index.drop(1))
 
-#conda create notifcation-env python-3.7 environment
+#conda create -n notifcation-env python=3.7 environment
 #conda activate notification-env for twilio
-#pip install pytest - allows for automated tests - have to input pytest into command line. Determines whether or not logic is behaving as desired
 #Import for Twilios #have to also install pip-requirements and create a conda envrionment
 ### Code to figure out data frame - don't change line 6-11
-#pip install -r requirements.txt, pip install lxml
+#pip install -r requirements.txt, pip install pandas, # Not required - pip install lxml, pip instalL html5lib....
 
 import pandas as pd
+#import html5lib
 
 import os
 import pprint
@@ -23,7 +23,7 @@ df = pd.DataFrame(df[0])
 
 headers = df.iloc[1]
 df = pd.DataFrame(df.values[2:], columns = headers)
-df = df[df.RK != 'RK']
+df = df[df.PLAYER != 'PLAYER']
 df = df.reset_index()
 df = df.drop(columns = ['index'])
 df = df.fillna(method = 'ffill')
@@ -38,7 +38,7 @@ df2 = pd.DataFrame(df2[0])
 headers = df2.iloc[1]
 df2 = pd.DataFrame(df2.values[2:], columns = headers)
 
-df2 = df2[df2.RK != 'RK']
+df2 = df2[df2.PLAYER != 'PLAYER']
 
 df2 = df2.reset_index()
 df2 = df2.drop(columns = ['index'])
@@ -51,7 +51,7 @@ df3 = pd.DataFrame(df3[0])
 headers = df3.iloc[1]
 df3 = pd.DataFrame(df3.values[2:], columns = headers)
 
-df3 = df3[df3.RK != 'RK']
+df3 = df3[df3.PLAYER != 'PLAYER']
 
 df3 = df3.reset_index()
 df3 = df3.drop(columns = ['index'])
@@ -64,7 +64,7 @@ df4 = pd.DataFrame(df4[0])
 headers = df4.iloc[1]
 df4 = pd.DataFrame(df4.values[2:], columns = headers)
 
-df4 = df4[df4.RK != 'RK']
+df4 = df4[df4.PLAYER != 'PLAYER']
 
 df4 = df4.reset_index()
 df4 = df4.drop(columns = ['index'])
@@ -87,11 +87,11 @@ df5 = pd.concat([df, df2, df3, df4])
 ###Setup
 # Might need to conda create and conda activate than install requirements - refer to twilio exercise
 
-print("You must enter a rank between 1-160 as these are the numbers of batters that currently qualify for at bats.")
+print("You must enter a qualified player's name. These are batters that currently ranked 1-160. Refer to README.")
 
-print("If a player is tied in rank you will see multiple players based on your input.")
+
 while True:
-    rank = input("Please enter a player's rank between 1-160 (NAN included for players tied in rank): ")
+    #rank = input("Please enter a player's rank between 1-160 (NAN included for players tied in rank): ")
    #if rank.lower() == "done": #Think I have to use elif
    #    break
    #if df2.lower() == "done": #Think I have to use elif
@@ -103,15 +103,18 @@ while True:
    ##    break
    # ROW = df5[df5['PLAYER']==player][['RK', 'PLAYER','TEAM','H','HR','AVG','OPS']]
   # if player in df5[df5['PLAYER']:
-    if int(rank) <161:#find rank that is less than 41. need 1-40
-        ROW = df5[df5['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
+    name = str(input("Please Enter a player's name: "))# if wanted to focus on upper versus lower would have to add at end of input
+    if name in str([i for i in df5.PLAYER]):  #find rank that is less than 41. need 1-40
+        ROW = df5[df5['PLAYER']==name][['PLAYER','TEAM','H','R','HR','RBI','AVG','OPS']]
         #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
         #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
         #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
         print("PLAYER: " + str(ROW['PLAYER'].values[0]))
         print("TEAM: " + str(ROW['TEAM'].values[0]))
         print("HITS: " + str(ROW['H'].values[0]))
+        print("RUNS: " + str(ROW['R'].values[0]))
         print("HOME RUNS: " + str(ROW['HR'].values[0]))
+        print("RBI: " + str(ROW['RBI'].values[0]))
         print("AVG: " + str(ROW['AVG'].values[0]))
         print("OPS: " + str(ROW['OPS'].values[0]))
         print("------------------------------")
@@ -123,8 +126,9 @@ while True:
 #        #print(STATS)
 #        #print(MORE_STATS)
     else:
-        print("Invalid Rank. Ranks for this input has to be between 1-160. The system will reboot! Please enter a valid rank.")
+        print("Invalid name. Please enter a valid player.")
         exit()
+
 
 
 #   rank = input("Please enter a player's rank between 41-80 (NAN included for players tied in rank): ")
