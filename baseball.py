@@ -99,9 +99,7 @@ while True:
    
 #    #How dataframes work - When you pull a dtaaframe you get the index, value, column name, and data type
 #    # #In order to only get the value out of a DF you have to use the values construct. by not using that previosuly I was getting all information (i.e. data type, index, etc.)    
-#        #print(NAME_TEAM)
-#        #print(STATS)
-#        #print(MORE_STATS)
+#        
     else:
         print("Invalid name. Please enter a valid player.")
         exit()
@@ -115,7 +113,7 @@ while True:
 # ... https://github.com/s2t2/birthday-wishes-py/commit/007c23f89dba5a8a87d85c6cf843c83514fc4736
 # ... https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/twilio.md
 
-#possibly might need to add a check here to make sure if greater than 40 error isn't an issue 
+
 #Ask how i can get the message sent to someone else's phone
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "OOPS, please specify env var called 'TWILIO_ACCOUNT_SID'")
 TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN", "OOPS, please specify env var called 'TWILIO_AUTH_TOKEN'")
