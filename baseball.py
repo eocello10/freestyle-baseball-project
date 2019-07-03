@@ -5,7 +5,7 @@
 #conda activate notifications-env for twilio
 #Import for Twilios #have to also install pip-requirements and create a conda envrionment
 ### Code to figure out data frame - don't change line 6-11
-#pip install -r requirements.txt, pip install pandas, # Not required - pip install lxml, pip instalL html5lib....
+#pip install -r requirements.txt, pip install pandas, pip install lxml, pip instalL html5lib....
 
 import pandas as pd
 
