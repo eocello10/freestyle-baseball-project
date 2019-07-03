@@ -4,9 +4,9 @@ Create code in order to allow inputs of certain players and receive outputs of t
 # Setup
 - To start your setup there are a few prerequisites:
     1. Create a conda environment. Anaconda 3.7:
-        - Type in conda create -n notifcation-env python=3.7 (first time only)
+        - Type in conda create -n notifcations-env python=3.7 (first time only)
     2. Activate your conda environment
-        - conda activate notification-env
+        - conda activate notifications-env
     3. You will need to install a few items:
      - pip install -r requirements.txt
         - This will connect with your requirements.txt which contains information about your notification service you will set up

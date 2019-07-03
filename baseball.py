@@ -8,7 +8,6 @@
 #pip install -r requirements.txt, pip install pandas, # Not required - pip install lxml, pip instalL html5lib....
 
 import pandas as pd
-#import html5lib
 
 import os
 import pprint
@@ -16,7 +15,7 @@ from dotenv import load_dotenv
 from twilio.rest import Client
 
 load_dotenv()
-#import requests
+
 df = pd.read_html('http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2')
 
 df = pd.DataFrame(df[0])
@@ -206,7 +205,7 @@ client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 ### COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
 
-content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
+content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", RUNS: " + str(ROW['R'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", RBIs: " + str(ROW['RBI'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
 
 ### ISSUE REQUEST (SEND SMS)
 
