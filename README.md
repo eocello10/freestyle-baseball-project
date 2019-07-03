@@ -24,7 +24,8 @@ Create code in order to allow inputs of certain players and receive outputs of t
 
 # Instructions
 
-- Once all requirements are instaled(note this only needs to happen the first time you enter into the command line) you will run the app. Type in python baseball.py
+- Once all requirements are instaled(note this only needs to happen the first time you enter into the command line) you will run the app. You will have to change directory. Type in cd baseball
+- Then to run the program type in python baseball.py
 - Once that is entered you will see: "You must enter a qualified player's name. These are batters that currently ranked 1-160. Refer to README."
     - This is prompted to notify you that based on ESPN's statistics database/information the app only uses the players provided by the below links:
         - 'http://www.espn.com/mlb/stats/batting/_/year/2019/seasontype/2' #Players ranked 1-40
