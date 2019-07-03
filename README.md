@@ -7,9 +7,11 @@ Create code in order to allow inputs of certain players and receive outputs of t
         - Type in conda create -n notifcations-env python=3.7 (first time only)
     2. Activate your conda environment
         - conda activate notifications-env
-    3. You will need to install a few items:
+    3. You will need to install a few items once you have changed directories to cd baseball:
         - pip install -r requirements.txt
         - pip install pandas
+        - pip install lxml
+        - pip instalL html5lib
     4. Twilio Account setup - Only if you want to receive notifications
         - For SMS capabilities, [sign up for a Twilio account](https://www.twilio.com/try-twilio), click the link in a confirmation email to verify your account, then confirm a code sent to your phone to enable 2FA.
         - Then [create a new project](https://www.twilio.com/console/projects/create) with "Programmable SMS" capabilities. And from the console, view that project's Account SID and Auth Token. Update the contents of the ".env" file to specify these values as environment variables called `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`, respectively.
@@ -24,7 +26,7 @@ Create code in order to allow inputs of certain players and receive outputs of t
 
 # Instructions
 
-- Once all requirements are instaled(note this only needs to happen the first time you enter into the command line) you will run the app. You will have to change directory. Type in cd baseball
+- Once all requirements are installed(note this only needs to happen the first time you enter into the command line) you will run the app. You will have to change directory. Type in cd baseball
 - Then to run the program type in python baseball.py
 - Once that is entered you will see: "You must enter a qualified player's name. These are batters that currently rank 1-160. Refer to README links under Instructions."
     - This is prompted to notify you that based on ESPN's statistics database/information the app only uses the players provided by the below links:
