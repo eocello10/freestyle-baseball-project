@@ -8,8 +8,8 @@ Create code in order to allow inputs of certain players and receive outputs of t
     2. Activate your conda environment
         - conda activate notifications-env
     3. You will need to install a few items:
-     - pip install -r requirements.txt
-     - pip install pandas
+        - pip install -r requirements.txt
+        - pip install pandas
     4. Twilio Account setup - To receive notifications
         - For SMS capabilities, [sign up for a Twilio account](https://www.twilio.com/try-twilio), click the link in a confirmation email to verify your account, then confirm a code sent to your phone to enable 2FA.
         - Then [create a new project](https://www.twilio.com/console/projects/create) with "Programmable SMS" capabilities. And from the console, view that project's Account SID and Auth Token. Update the contents of the ".env" file to specify these values as environment variables called `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`, respectively.
