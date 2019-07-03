@@ -15,7 +15,7 @@ Create code in order to allow inputs of certain players and receive outputs of t
         - Then [create a new project](https://www.twilio.com/console/projects/create) with "Programmable SMS" capabilities. And from the console, view that project's Account SID and Auth Token. Update the contents of the ".env" file to specify these values as environment variables called `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`, respectively.
         - You'll also need to [obtain a Twilio phone number](https://www.twilio.com/console/sms/getting-started/build) to send the messages from. After doing so, update the contents of the ".env" file to specify this value (including the plus sign at the beginning) as an environment variable called `SENDER_SMS`.
         - Finally, set an environment variable called `RECIPIENT_SMS` to specify the recipient's phone number (including the plus sign at the beginning).
-    5. Create an .env file and setup with the below information - only if you want to receive notifications:
+    5. Create an .env file and setup with the below information. This needs to be created seperately for security reason by the user - only if you want to receive notifications:
         - TWILIO_ACCOUNT_SID="ABC123" # This will be provided once you create a twilio account
         - TWILIO_AUTH_TOKEN="123ABC" # This will be provided once you create a twilio account
         - SENDER_SMS="+1234567890" # This will be provided once you create a twilio account
