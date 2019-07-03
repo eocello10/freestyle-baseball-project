@@ -208,8 +208,8 @@ client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 ### COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
 
-content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats as of " + now.strftime('%b %d %Y %I:%M %p') + " Player: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", RUNS: " + str(ROW['R'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", RBIs: " + str(ROW['RBI'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
-
+content = "Your 'STATS CHECK' notification as of " + now.strftime('%b %d %Y %I:%M %p') + "\nPlayer: " + str(ROW['PLAYER'].values[0]) + "\nTeam: " + str(ROW['TEAM'].values[0]) + "\nHITS: " + str(ROW['H'].values[0]) + "\nRUNS: " + str(ROW['R'].values[0]) + "\nHOME RUNS: " + str(ROW['HR'].values[0]) + "\nRBIs: " + str(ROW['RBI'].values[0]) + "\nAVG: " + str(ROW['AVG'].values[0]) + "\nOPS: " + str(ROW['OPS'].values[0])
+#content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats as of " + now.strftime('%b %d %Y %I:%M %p') + "\nPlayer: " + str(ROW['PLAYER'].values[0]) + "\nTeam: " + str(ROW['TEAM'].values[0]) 
 ### ISSUE REQUEST (SEND SMS)
 
 message = client.messages.create(to=RECIPIENT_SMS, from_=SENDER_SMS, body=content)
