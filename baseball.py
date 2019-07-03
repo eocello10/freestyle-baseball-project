@@ -87,7 +87,7 @@ df5 = pd.concat([df, df2, df3, df4])
 ###Setup
 # Might need to conda create and conda activate than install requirements - refer to twilio exercise
 
-print("You must enter a qualified player's name. These are batters that currently ranked 1-160. Refer to README.")
+print("You must enter a qualified player's name. These are batters that currently rank 1-160. Refer to README links under Instructions.")
 
 
 while True:
