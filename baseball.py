@@ -71,45 +71,18 @@ df4 = df4.drop(columns = ['index'])
 df4 = df4.fillna(method = 'ffill')
 
 df5 = pd.concat([df, df2, df3, df4])
-###Consider updating from rank to player. If do this add list of players in README
-#print(df3)
-#http://www.espn.com/mlb/stats/batting/_/count/81/qualified/true
-#http://www.espn.com/mlb/stats/batting/_/count/121/qualified/true
-#
 
-#print(df3)
-##dr.drop(['1'], axis=1) - Trying to drop column to left of rank. Does not work
-#df = df[(df['RK']>=str(1)) & (df['RK']<=str(40))]
-#print(df)
-# print(len(df.index)) - illustrates I removed the "headers" for everything underneath first row
-
-
-###Setup
-# Might need to conda create and conda activate than install requirements - refer to twilio exercise
 
 print("You must enter a qualified player's name. These are batters that currently rank 1-160. Refer to README links under Instructions.")
 
 
 while True:
-    #rank = input("Please enter a player's rank between 1-160 (NAN included for players tied in rank): ")
-   #if rank.lower() == "done": #Think I have to use elif
-   #    break
-   #if df2.lower() == "done": #Think I have to use elif
-   #    break
-   #player = input("Please enter a player that is qualified based on ESPN's list(view README): ")
-   ##if rank.lower() == "done": #Think I have to use elif
-   ##    break
-   ##if df2.lower() == "done": #Think I have to use elif
-   ##    break
-   # ROW = df5[df5['PLAYER']==player][['RK', 'PLAYER','TEAM','H','HR','AVG','OPS']]
-  # if player in df5[df5['PLAYER']:
+   
     name = str(input("Please Enter a player's name: "))# if wanted to focus on upper versus lower would have to add at end of input
     now = datetime.datetime.now()
-    if name in str([i for i in df5.PLAYER]):  #find rank that is less than 41. need 1-40
+    if name in str([i for i in df5.PLAYER]):  
         ROW = df5[df5['PLAYER']==name][['PLAYER','TEAM','H','R','HR','RBI','AVG','OPS']]
-        #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
-        #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
-        #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
+        
         print("Request date and time: " + now.strftime('%b %d %Y %I:%M %p'))
         print("PLAYER: " + str(ROW['PLAYER'].values[0]))
         print("TEAM: " + str(ROW['TEAM'].values[0]))
@@ -133,61 +106,6 @@ while True:
 
 
 
-#   rank = input("Please enter a player's rank between 41-80 (NAN included for players tied in rank): ")
-#   if int(rank) <81:#find rank that is less than 41. need 1-40
-#       ROW = df2[df2['RK']==rank][['PLAYER','TEAM','H','HR','AVG','OPS']]
-#       #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
-#       #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
-#       #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
-#       print("PLAYER: " + str(ROW['PLAYER'].values[0]))
-#       print("TEAM: " + str(ROW['TEAM'].values[0]))
-#       print("HITS: " + str(ROW['H'].values[0]))
-#       print("HOME RUNS: " + str(ROW['HR'].values[0]))
-#       print("AVG: " + str(ROW['AVG'].values[0]))
-#       print("OPS: " + str(ROW['OPS'].values[0]))
-#       print("------------------------------")
-#       break
-#    #How dataframes work - When you pull a dtaaframe you get the index, value, column name, and data type
-#    # #In order to only get the value out of a DF you have to use the values construct. by not using that previosuly I was getting all information (i.e. data type, index, etc.)    
-#        #print(NAME_TEAM)
-#        #print(STATS)
-#        #print(MORE_STATS)
-#    else:
-#        print("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
-#        break
-   #df[df['RK']==rank]['RK']
-   #if df[df['RK']==rank]['RK'] not in df:
-   #    print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
-   #    break
-   #else:
-   #    print(NAME_TEAM)
-   #    print(STATS)
-   #    print(MORE_STATS)
-   #    exit()
-       
-   #xrange = str(1-41)
-   #if rank not in xrange(1, 41):
-   #     print ("Invalid Rank. Ranks for this input has to be between 1-40. NAN also included (This means this player is tied in rank with another). Please enter again")
-   #     break    
-   #if rank in xrange(1, 41):
-   #     print(NAME_TEAM)
-   #     print (STATS)
-   #     print(MORE_STATS)
-   #     exit()
-      
-   #df[df['RK']==rank]['RK'] - this gave me all the information from the dataframe to make it cleanr see above description of values
-   #    exit
-
-        
-#print(df[df.PLAYER == 'Cody Bellinger']) 
-#print(df[df.RK == '{}.format(rank)']) #Simpler Approach
-##try to figure out how to show the players they can choose from - make menu with a number
-
-
-#1. how to iterate through the numbers (i.e. 41, 81, etc. for the url) - take url shell put curly braces in it and append to the url string the number you want to insert. need to do a for loop. When get to end of loop. have to append it to a dataframe that not working with
-#x = pd.DataFrame()
-# perform a for loop here for the above. insde of foor loop works with process above
-##df = pd.read_html('http://www.espn.com/mlb/stats/batting/_/year/{}/seasontype/2'.format(i)) - take whatever number you are looping 
 
 ####Notification Service via Twilio
 # adapted from:
