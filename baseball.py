@@ -1,8 +1,8 @@
 
 # df.reindex(df.index.drop(1))
 
-#conda create -n notifcation-env python=3.7 environment
-#conda activate notification-env for twilio
+#conda create -n notifcations-env python=3.7 environment
+#conda activate notifications-env for twilio
 #Import for Twilios #have to also install pip-requirements and create a conda envrionment
 ### Code to figure out data frame - don't change line 6-11
 #pip install -r requirements.txt, pip install pandas, # Not required - pip install lxml, pip instalL html5lib....
