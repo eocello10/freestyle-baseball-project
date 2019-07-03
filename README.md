@@ -11,7 +11,7 @@ Create code in order to allow inputs of certain players and receive outputs of t
         - pip install -r requirements.txt
         - pip install pandas
         - pip install lxml
-        - pip instalL html5lib
+        - pip install html5lib
     4. Twilio Account setup - Only if you want to receive notifications
         - For SMS capabilities, [sign up for a Twilio account](https://www.twilio.com/try-twilio), click the link in a confirmation email to verify your account, then confirm a code sent to your phone to enable 2FA.
         - Then [create a new project](https://www.twilio.com/console/projects/create) with "Programmable SMS" capabilities. And from the console, view that project's Account SID and Auth Token. Update the contents of the ".env" file to specify these values as environment variables called `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN`, respectively.

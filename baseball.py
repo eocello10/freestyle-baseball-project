@@ -9,6 +9,8 @@
 
 import pandas as pd
 
+import html5lib
+
 import os
 import pprint
 from dotenv import load_dotenv
