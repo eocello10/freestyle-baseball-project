@@ -13,6 +13,7 @@ import os
 import pprint
 from dotenv import load_dotenv
 from twilio.rest import Client
+import datetime
 
 load_dotenv()
 
@@ -103,11 +104,13 @@ while True:
    # ROW = df5[df5['PLAYER']==player][['RK', 'PLAYER','TEAM','H','HR','AVG','OPS']]
   # if player in df5[df5['PLAYER']:
     name = str(input("Please Enter a player's name: "))# if wanted to focus on upper versus lower would have to add at end of input
+    now = datetime.datetime.now()
     if name in str([i for i in df5.PLAYER]):  #find rank that is less than 41. need 1-40
         ROW = df5[df5['PLAYER']==name][['PLAYER','TEAM','H','R','HR','RBI','AVG','OPS']]
         #NAME_TEAM = "PLAYER NAME: " + df[df['RK']==rank]['PLAYER'] + "...TEAM: " + df[df['RK']==rank]['TEAM']
         #STATS = "HITS: " + df[df['RK']==rank]['H'] + "...HOME RUNS: " + df[df['RK']==rank]['HR']
         #MORE_STATS = "BATTING AVERAGE: " + df[df['RK']==rank]['AVG'] + "...OPS: " + df[df['RK']==rank]['OPS']
+        print("Request date and time: " + now.strftime('%b %d %Y %I:%M %p'))
         print("PLAYER: " + str(ROW['PLAYER'].values[0]))
         print("TEAM: " + str(ROW['TEAM'].values[0]))
         print("HITS: " + str(ROW['H'].values[0]))
@@ -205,7 +208,7 @@ client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 ### COMPILE REQUEST PARAMETERS (PREPARE THE MESSAGE)
 
-content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", RUNS: " + str(ROW['R'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", RBIs: " + str(ROW['RBI'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
+content = "Your daily 'STATS CHECK' notification. See the player you chose and his stats as of " + now.strftime('%b %d %Y %I:%M %p') + " Player: " + str(ROW['PLAYER'].values[0]) + ", Team: " + str(ROW['TEAM'].values[0]) + ", HITS: " + str(ROW['H'].values[0]) + ", RUNS: " + str(ROW['R'].values[0]) + ", HOME RUNS: " + str(ROW['HR'].values[0]) + ", RBIs: " + str(ROW['RBI'].values[0]) + ", AVG: " + str(ROW['AVG'].values[0]) + ", OPS: " + str(ROW['OPS'].values[0])
 
 ### ISSUE REQUEST (SEND SMS)
 
